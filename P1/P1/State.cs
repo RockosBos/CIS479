@@ -7,7 +7,7 @@ namespace P1
     class State
     {
         private int[] statePosition = {};
-        private int manhattanDistance { get; set; }
+        public int manhattanDistance { get; set; }
 
         //Costs for windy conditions
         private const int NORTHCOST = 1;

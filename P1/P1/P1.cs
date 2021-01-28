@@ -25,7 +25,10 @@ namespace P1
         static void Main(string[] args)
         {
             int[] initialConfiguration = { 2, 8, 3, 6, 7, 4, 1, 5, 0 };
+            //int[] testConfiguration = { 5, 2, 3, 8, 0, 4, 7, 6, 1 };
+
             State initialState = new State(initialConfiguration);
+            Console.WriteLine(initialState.manhattanDistance);
 
             printState(initialState.getPositions());
         }
