@@ -6,8 +6,12 @@ namespace P1
 {
     class State
     {
-        private int[] statePosition = {};
+        public int[] statePosition = new int[9];
         public int manhattanDistance { get; set; }
+        public int stateDepth { get; set; }
+        public int expansionOrder { get; set; }
+
+        public List<State> path = new List<State>();
 
         //Costs for windy conditions
         private const int NORTHCOST = 1;
@@ -15,14 +19,21 @@ namespace P1
         private const int SOUTHCOST = 3;
         private const int WESTCOST = 2;
         
-
-
-
         public State(int[] positions)
         {
-            statePosition = positions;
+            positions.CopyTo(this.statePosition, 0);
             manhattanDistance = calculateManhattanDistance();
 
+        }
+
+        public State(State oldState)
+        {
+            oldState.statePosition.CopyTo(this.statePosition, 0);
+            this.manhattanDistance = oldState.manhattanDistance;
+            this.stateDepth = oldState.stateDepth;
+            this.expansionOrder = oldState.expansionOrder;
+            this.path.Add(oldState);
+            manhattanDistance = calculateManhattanDistance();
         }
 
         public int[] getPositions()
@@ -106,9 +117,7 @@ namespace P1
                 case 1:
                     switch (num)
                     {
-                        case 0:
-                            total = 1 * EASTCOST + 1 * SOUTHCOST;
-                            break;
+                       
                         case 1:
                             total = 0;
                             break;
@@ -138,9 +147,7 @@ namespace P1
                 case 2:
                     switch (num)
                     {
-                        case 0:
-                            total = 1 * SOUTHCOST;
-                            break;
+                        
                         case 1:
                             total = 1 * WESTCOST;
                             break;
@@ -170,9 +177,7 @@ namespace P1
                 case 3:
                     switch (num)
                     {
-                        case 0:
-                            total = 1 * WESTCOST + 1 * SOUTHCOST;
-                            break;
+                        
                         case 1:
                             total = 2 * WESTCOST;
                             break;
@@ -202,9 +207,7 @@ namespace P1
                 case 4:
                     switch (num)
                     {
-                        case 0:
-                            total = 1 * WESTCOST;
-                            break;
+                       
                         case 1:
                             total = 2 * WESTCOST + 1 * NORTHCOST;
                             break;
@@ -234,9 +237,7 @@ namespace P1
                 case 5:
                     switch (num)
                     {
-                        case 0:
-                            total = 1 * WESTCOST + 1 * NORTHCOST;
-                            break;
+                        
                         case 1:
                             total = 2 * WESTCOST + 2 * NORTHCOST;
                             break;
@@ -266,9 +267,7 @@ namespace P1
                 case 6:
                     switch (num)
                     {
-                        case 0:
-                            total = 1 * NORTHCOST;
-                            break;
+                        
                         case 1:
                             total = 1 * WESTCOST + 2 * NORTHCOST;
                             break;
@@ -298,9 +297,7 @@ namespace P1
                 case 7:
                     switch (num)
                     {
-                        case 0:
-                            total = 1 * EASTCOST + 1 * NORTHCOST;
-                            break;
+                        
                         case 1:
                             total = 2 * NORTHCOST;
                             break;
@@ -330,9 +327,6 @@ namespace P1
                 case 8:
                     switch (num)
                     {
-                        case 0:
-                            total = 1 * EASTCOST;
-                            break;
                         case 1:
                             total = 1 * NORTHCOST;
                             break;
@@ -372,7 +366,7 @@ namespace P1
                             total = 1 * NORTHCOST;
                             break;
                         case 3:
-                            total = 1 * EASTCOST + 1 * NORTHCOST;
+                            total = 2 * EASTCOST + 1 * NORTHCOST;
                             break;
                         case 4:
                             total = 1 * EASTCOST;
@@ -391,6 +385,7 @@ namespace P1
                             break;
                     }
                     break;
+                
             }
             //Console.WriteLine("Total distance for {0} (Position {1}) to be corrected is {2}", num, loc, total);
             return total;

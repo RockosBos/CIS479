@@ -6,6 +6,7 @@
     Professor: Dr. Shengquan Wang
 -------------------------------------------------*/
 using System;
+using System.Collections.Generic;
 
 namespace P1
 {
@@ -21,25 +22,39 @@ namespace P1
             -------------                 -------------
             | 1 | 5 | - |                 | 7 | 6 | 5 |
             -------------                 -------------
+
+            For this Project the number 0 will represent the empty square
         */
         static void Main(string[] args)
         {
             int[] initialConfiguration = { 2, 8, 3, 6, 7, 4, 1, 5, 0 };
+            int[] goalConfiguration = { 1, 2, 3, 8, 0, 4, 7, 6, 5};
             //int[] testConfiguration = { 5, 2, 3, 8, 0, 4, 7, 6, 1 };
 
             State initialState = new State(initialConfiguration);
-            Console.WriteLine(initialState.manhattanDistance);
+            State goalState = new State(goalConfiguration);
 
-            printState(initialState.getPositions());
+            Table table = new Table(initialState, goalState);
+
+            
+
+            List<State> solution = table.mainAlgorithm();
+            for(int i = 0; i < solution.Count; i++)
+            {
+                printState(solution[i]);
+            }
+
         }
 
-        static void printState(int[] state)
+        static void printState(State state)
         {
-            Console.WriteLine("{0} | {1} | {2}", state[0], state[1], state[2]);
+            int[] pos = state.getPositions();
+            Console.WriteLine("{0} | {1} | {2}", pos[0], pos[1], pos[2]);
             Console.WriteLine("---------");
-            Console.WriteLine("{0} | {1} | {2}", state[3], state[4], state[5]);
+            Console.WriteLine("{0} | {1} | {2}", pos[3], pos[4], pos[5]);
             Console.WriteLine("---------");
-            Console.WriteLine("{0} | {1} | {2}", state[6], state[7], state[8]);
+            Console.WriteLine("{0} | {1} | {2}", pos[6], pos[7], pos[8]);
+            Console.WriteLine("{0} | {1}", state.stateDepth, state.manhattanDistance);
             Console.WriteLine();
         }
     }
