@@ -19,6 +19,7 @@ namespace P1
             if (emptyPos != 0 && emptyPos != 3 && emptyPos != 6)
             {
                 newStateList.Add(shiftRight(state));
+
                 numValidStates++;
                 //Console.WriteLine("R");
             }
@@ -48,6 +49,7 @@ namespace P1
         {
             State newState = new State(oldState);
             
+
             int emptyPos = getEmptySquare(newState.getPositions());
 
             
@@ -58,13 +60,13 @@ namespace P1
             newState.expansionOrder = oldState.expansionOrder + 1;
             newState.stateDepth = oldState.stateDepth + 2;
 
-            testOutput(newState);
+            //testOutput(newState);
 
             return newState;
         }
         public State shiftLeft(State oldState)
         {
-            State newState = new State(oldState.getPositions());
+            State newState = new State(oldState);
             int emptyPos = getEmptySquare(newState.getPositions());
 
             newState.statePosition[emptyPos] = newState.statePosition[emptyPos + 1];
@@ -74,13 +76,13 @@ namespace P1
             newState.expansionOrder = oldState.expansionOrder + 1;
             newState.stateDepth = oldState.stateDepth + 2;
 
-            testOutput(newState);
+            //testOutput(newState);
 
             return newState;
         }
         public State shiftUp(State oldState)
         {
-            State newState = new State(oldState.getPositions());
+            State newState = new State(oldState);
             int emptyPos = getEmptySquare(newState.getPositions());
 
             newState.statePosition[emptyPos] = newState.statePosition[emptyPos + 3];
@@ -90,13 +92,13 @@ namespace P1
             newState.expansionOrder = oldState.expansionOrder + 1;
             newState.stateDepth = oldState.stateDepth + 1;
 
-            testOutput(newState);
+            //testOutput(newState);
 
             return newState;
         }
         public State shiftDown(State oldState)
         {
-            State newState = new State(oldState.getPositions());
+            State newState = new State(oldState);
             int emptyPos = getEmptySquare(newState.getPositions());
 
             newState.statePosition[emptyPos] = newState.statePosition[emptyPos - 3];
@@ -106,7 +108,7 @@ namespace P1
             newState.expansionOrder = oldState.expansionOrder + 1;
             newState.stateDepth = oldState.stateDepth + 3;
 
-            testOutput(newState);
+            //testOutput(newState);
 
             return newState;
         }

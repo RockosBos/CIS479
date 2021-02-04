@@ -10,6 +10,8 @@ namespace P1
         public int manhattanDistance { get; set; }
         public int stateDepth { get; set; }
         public int expansionOrder { get; set; }
+        public int pathNumber { get; set; }
+        public State previous { get; set; }
 
         public List<State> path = new List<State>();
 
@@ -18,24 +20,35 @@ namespace P1
         private const int EASTCOST = 2;
         private const int SOUTHCOST = 3;
         private const int WESTCOST = 2;
+
+        public State() { 
+
+        }
         
         public State(int[] positions)
         {
             positions.CopyTo(this.statePosition, 0);
             manhattanDistance = calculateManhattanDistance();
-
+            path.Add(this);
+            
         }
 
         public State(State oldState)
         {
             oldState.statePosition.CopyTo(this.statePosition, 0);
-            this.manhattanDistance = oldState.manhattanDistance;
-            this.stateDepth = oldState.stateDepth;
-            this.expansionOrder = oldState.expansionOrder;
-            this.path.Add(oldState);
+            manhattanDistance = oldState.manhattanDistance;
+            stateDepth = oldState.stateDepth;
+            expansionOrder = oldState.expansionOrder;
+            previous = oldState;
+            
+            path = oldState.path;
+            path.Add(oldState);
+            
+            
             manhattanDistance = calculateManhattanDistance();
         }
 
+        
         public int[] getPositions()
         {
             return statePosition;
@@ -67,6 +80,7 @@ namespace P1
 
             }
             //Console.WriteLine("Total Manhattan Distance is {0}", manhattanSum);
+            manhattanDistance = manhattanSum;
             return manhattanSum;
         }
         private int setCurrentLocation(int arrayNum)
@@ -390,5 +404,7 @@ namespace P1
             //Console.WriteLine("Total distance for {0} (Position {1}) to be corrected is {2}", num, loc, total);
             return total;
         }
+
+
     }
 }

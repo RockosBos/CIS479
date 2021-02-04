@@ -28,13 +28,11 @@ namespace P1
         static void Main(string[] args)
         {
             int[] initialConfiguration = { 2, 8, 3, 6, 7, 4, 1, 5, 0 };
-            int[] goalConfiguration = { 1, 2, 3, 8, 0, 4, 7, 6, 5};
             //int[] testConfiguration = { 5, 2, 3, 8, 0, 4, 7, 6, 1 };
 
             State initialState = new State(initialConfiguration);
-            State goalState = new State(goalConfiguration);
 
-            Table table = new Table(initialState, goalState);
+            Table table = new Table(initialState);
 
             
 
